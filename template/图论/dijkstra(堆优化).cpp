@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
+const int N = 1e4 + 10;
 const ll inf = 0x3f3f3f3f3f3f3f3f;
 struct node
 {
@@ -11,18 +12,16 @@ struct node
         return a.w > b.w;
     }
 };
-int main()
+int n, m;
+vector<vector<node> >g(N);
+ll dis[N];
+int vis[N];
+void dij(int s)
 {
-    int n, m, s;
-    cin >> n >> m >> s;
-    vector<ll>dis(n + 1, inf);
-    vector<int>vis(n + 1);
-    vector<vector<node> >g(n + 1);
-    for (int i = 0, u, v, w; i < m; i++)
+    for (int i = 1; i <= n; i++)
     {
-        cin >> u >> v >> w;
-        g[u].push_back({v, w});
-        g[v].push_back({u, w});
+        dis[i] = inf;
+        vis[i] = 0;
     }
     priority_queue<node>q;
     dis[s] = 0;
@@ -35,12 +34,21 @@ int main()
         vis[u] = 1;
         for (auto [v, w] : g[u])
         {
-            if (dis[v] > d + w)
+            if (dis[v] > dis[u] + w)
             {
-                dis[v] = d + w;
+                dis[v] = dis[u] + w;
                 q.push({v, dis[v]});
             }
         }
     }
-    return 0;
+}
+void solve()
+{
+    cin >> n >> m;
+    for (int i = 0, u, v, w; i < m; i++)
+    {
+        cin >> u >> v >> w;
+        g[u].push_back({v, w});
+        g[v].push_back({u, w});
+    }
 }
