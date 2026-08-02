@@ -12,19 +12,19 @@ int n, m, cnt[N];
 ll dis[N];
 bool in[N];
 vector<vector<node> >g(N);
-void spfa()
+void spfa(int s)
 {
     queue<int>q;
     for (int i = 1; i <= n; i++)
     {
         dis[i] = inf;
-        cnt[i] = 0;
+        //cnt[i] = 0;
         in[i] = false;
     }
-    q.push(1);
-    in[1] = true;
-    dis[1] = 0;
-    // cnt[1] = 1;
+    q.push(s);
+    in[s] = true;
+    dis[s] = 0;
+    //cnt[s] = 1;
     while (!q.empty())
     {
         int u = q.front();
@@ -35,8 +35,8 @@ void spfa()
             if (dis[v] > dis[u] + w)
             {
                 dis[v] = dis[u] + w;
-                // cnt[v]++;
-                // if (cnt[v] >= n) return true;
+                //cnt[v]++;
+                //if (cnt[v] >= n) return true;
                 if (!in[v])
                 {
                     q.push(v);
@@ -45,7 +45,7 @@ void spfa()
             }
         }
     }
-    // return false;
+    //return false;
 }
 void solve()
 {
