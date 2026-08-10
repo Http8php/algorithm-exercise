@@ -2,28 +2,24 @@
 using namespace std;
 using ll = long long;
 const int N = 1e5 + 10;
-const int inf = 0x3f3f3f3f;
 int n, idx, mx, dis[N];
 vector<vector<pair<int, ll> > >g(N);
-void dfs(int u, int fa, ll nd)
+void dfs(int u, int fa, ll d)
 {
-    dis[u] = nd;
-    if (nd > mx)
+    dis[u] = d;
+    if (d > mx)
     {
-        mx = nd;
+        mx = d;
         idx = u;
     }
     for (auto [v, w] : g[u])
     {
         if (v == fa) continue;
-        dfs(v, u, nd + w);
+        dfs(v, u, d + w);
     }
 }
-int main()
+void solve()
 {
-    ios::sync_with_stdio(false);
-    cin.tie(0);
-    cout.tie(0);
     cin >> n;
     for (int i = 0, u, v, w; i < n - 1; i++)
     {
@@ -35,6 +31,4 @@ int main()
     dfs(1, 0, 0);
     mx = -1;
     dfs(idx, 0, 0);
-    cout << mx;
-    return 0;
 }
