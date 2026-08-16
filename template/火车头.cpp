@@ -4,9 +4,10 @@ using namespace std;
 #define eps 1e-6
 #define debug(x) cout << x << '\n';
 
-using ui = unsigned int;
+using i32 = unsigned int;
 using ll = long long;
 using ull = unsigned long long;
+using i128 = __int128;
 
 const int N = 2e5 + 10;
 const int inf = 0x3f3f3f3f;
