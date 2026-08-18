@@ -4,21 +4,20 @@ const int mod = 998244353;
 ll fact[N], inv[N];
 ll fp(ll a, ll b)
 {
+    ll res = 1;
     a %= mod;
-    ll ans = 1;
-    while (b > 0)
+    while (b)
     {
-        if (b & 1) ans = ans * a % mod;
+        if (b & 1) res = res * a % mod;
         a = a * a % mod;
         b >>= 1;
     }
-    return ans;
+    return res;
 }
 void ptm()
 {
-    fact[0] = 1;
-    inv[0] = 1;
-    for (int i = 1; i <= N; i++)
+    fact[0] = 1, inv[0] = 1;
+    for (int i = 1; i < N; i++)
     {
         fact[i] = fact[i-1] * i % mod;
     }
