@@ -1,29 +1,35 @@
 #include <bits/stdc++.h>
 using namespace std;
-const int N = 1e5 + 10;
-int n, q;
-int a[N], mx[N][18], mn[N][18];
+using ll = long long;
+const int N = 5e5 + 10;
+int n, q, l2[N];
+ll a[N], mx[N][25], mn[N][25];
 void init()
 {
-    for (int j = 1; (1 << j) <= n; j++)
+    for (int i = 2; i <= n + 1; i++)
     {
-        int tmp = (1 << j - 1);
-        for (int i = 1; i + tmp <= n; i++)
+        l2[i] = l2[i/2] + 1;
+    }
+    for (int i = 1; i <= n; i++)
+    {
+        mx[i][0] = mn[i][0] = a[i];
+    }
+    for (int i = 1; (1 << i) <= n + 1; i++)
+    {
+        for (int j = 0; j + (1 << i) - 1 <= n; j++)
         {
-            mx[i][j] = max(mx[i][j-1], mx[i+tmp][j-1]);
-            mn[i][j] = min(mn[i][j-1], mn[i+tmp][j-1]);
+            mx[j][i] = max(mx[j][i-1], mx[j+(1<<(i-1))][i-1]);
+            mn[j][i] = min(mn[j][i-1], mn[j+(1<<(i-1))][i-1]);
         }
     }
 }
-int query_max(int l, int r)
+ll query_max(int l, int r)
 {
-    int len = r - l + 1;
-    int j = log2(len);
+    int j = l2[r-l+1];
     return max(mx[l][j], mx[r-(1<<j)+1][j]);
 }
-int query_min(int l, int r)
+ll query_min(int l, int r)
 {
-    int len = r - l + 1;
-    int j = log2(len);
+    int j = l2[r-l+1];
     return min(mn[l][j], mn[r-(1<<j)+1][j]);
 }
