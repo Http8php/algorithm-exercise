@@ -1,9 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
-const int N = 1e4 + 10;
-int n;
-vector<int>g[N];
-int a[N], dp[N][2];
+using ll = long long;
+const int N = 2e5 + 10;
+ll a[N], dp[N][2];
+vector<vector<int> >g(N);
 void dfs(int u, int fa)
 {
     dp[u][0] = 0;
